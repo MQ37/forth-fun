@@ -1,15 +1,18 @@
 : divisible ( n n -- b )
     mod 0= ;
 
- : is_prime ( n -- b )
-     { n }
-     true \ base case 
+: get_stop_index ( n -- n )
+    { n }
      n 0 d>f \ convert to float
      fsqrt \ sqrt
      f>s 1+ dup 2 < if \ if sqrt <= 2 loop to 3
         drop 3
-     endif
-     2 do
+     endif ;
+
+: is_prime ( n -- b )
+     { n }
+     true \ base case 
+     n get_stop_index 2 do
          I n = if \ case for sqrt <= 2
             unloop exit
          endif
